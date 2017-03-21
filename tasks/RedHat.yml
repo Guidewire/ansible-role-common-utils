@@ -1,0 +1,61 @@
+---
+- name: install EPEL
+  yum: name=http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm state=present
+  when: "{{ ansible_distribution_major_version == '6' and install_epel }}"
+
+- name: install EPEL
+  yum: name=epel-release state=present
+  when: "{{ install_epel and ansible_distribution_major_version|version_compare( '7', '>=') }}"
+
+- name: install basic packages
+  yum: name={{ item }} state=present
+  with_items:
+    - atop
+    - bash-completion
+    - byobu
+    - curl
+    - hdparm
+    - hdparm
+    - htop
+    - iftop
+    - iotop
+    - libselinux-python
+    - lsof
+    - mailx
+    - nano
+    - ncdu
+    - net-tools
+    - smartmontools
+    - sysstat
+    - telnet
+    - tmux
+    - unzip
+    - vim-enhanced
+    - virt-what
+    - wget
+    
+- name: install additional packages
+  yum: name={{ item }} state=present
+  with_items:
+      - git
+      - lshw
+      - tcpdump
+  ignore_errors: True
+  when: "{{ not common_utils_ascetic_install }}"
+
+# tcpflow does not seem to be present in default repos - should we install EPEL first?
+# Hmm we do install EPEL, so what is the problem?
+- name: install more additional packages
+  yum: name={{ item }} state=present
+  with_items:
+      - tcpflow
+  ignore_errors: True
+  when: "{{ not common_utils_ascetic_install }}"
+
+- name: put atop config
+  template: src=atop dest=/etc/sysconfig/atop
+  when: "{{ ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7' }}"
+  notify: restart atop
+
+- name: enable atop
+  service: name=atop state=started enabled=on

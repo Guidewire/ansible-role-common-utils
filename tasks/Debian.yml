@@ -1,0 +1,72 @@
+- name: apt-get update
+  apt:
+    update_cache: yes
+    cache_valid_time: 300
+  ignore_errors: True
+
+- name: install basic packages
+  apt: name={{ item }} state=present
+  with_items:
+      - aptitude
+      - curl
+      - hdparm
+      - heirloom-mailx
+      - iftop
+      - iotop
+      - lsof
+      - ncdu
+      - netcat
+      - openssl
+      - parted
+      - psmisc
+      - screen
+      - smartmontools
+      - sysstat
+      - telnet
+      - tmux
+      - unzip
+      - vim
+      - virt-what
+      - wget
+
+- name: install additional packages
+  apt: name={{ item }} state=present
+  with_items:
+      - aria2
+      - atop
+      - bc
+      - byobu
+      - ethtool
+      - git
+      - htop
+      - iperf
+      - jq
+      - liblz4-tool
+      - lshw
+      - members
+      - mosh
+      - netdiag
+      - nethogs
+      - nethogs
+      - ngrep
+      - pv
+      - software-properties-common
+      - tcpdump
+      - tcpflow
+      - tree
+      - unzip
+
+  ignore_errors: True
+  when: "{{ not common_utils_ascetic_install }}"
+
+- name: put atop config
+  template: src=atop.ubuntu dest=/etc/default/atop
+  notify: restart atop
+  when: "{{ not common_utils_ascetic_install }}"
+
+- name: install perf-related packages
+  apt: name={{ item }} state=present
+  with_items:
+      - linux-tools
+  ignore_errors: True
+  when: "{{ not common_utils_ascetic_install }}"
