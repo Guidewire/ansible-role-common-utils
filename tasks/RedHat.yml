@@ -27,6 +27,7 @@
     - nano
     - ncdu
     - net-tools
+    - python-pip
     - smartmontools
     - sysstat
     - telnet
