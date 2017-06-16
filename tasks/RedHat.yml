@@ -12,6 +12,7 @@
   with_items:
     - atop
     - bash-completion
+    - bind-utils
     - byobu
     - curl
     - hdparm
@@ -22,6 +23,7 @@
     - libselinux-python
     - lsof
     - mailx
+    - mosh
     - nano
     - ncdu
     - net-tools
