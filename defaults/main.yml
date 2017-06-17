@@ -1,3 +1,4 @@
 ---
 common_utils_ascetic_install: false
 install_epel: true
+get_url_on_old_python: false

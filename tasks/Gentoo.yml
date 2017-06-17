@@ -3,6 +3,7 @@
   with_items:
       - app-misc/screen
       - curl
+      - dev-python/pip
       - hdparm
       # - heirloom-mailx
       - iftop

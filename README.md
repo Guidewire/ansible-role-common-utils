@@ -1,1 +1,1 @@
-Installs some must-have packages.
+Installs some must-have packages. See defaults for options.

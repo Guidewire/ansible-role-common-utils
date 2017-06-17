@@ -10,7 +10,7 @@
 - include: Gentoo.yml
   when: ansible_os_family  == "Gentoo"
 
-- name: install packages required by get_url if python is too old
+- name: try to install packages required by get_url https and SNI if python is too old
   pip: name="{{ item }}"
   with_items:
     - urllib3
@@ -18,3 +18,5 @@
     - ndg-httpsclient
     - pyasn1
   when: ansible_python_version|version_compare('2.7.9', '<')
+  ignore_errors: true
+  when: get_url_on_old_python
