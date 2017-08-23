@@ -19,4 +19,3 @@
     - pyasn1
   when: ansible_python_version|version_compare('2.7.9', '<')
   ignore_errors: true
-  when: get_url_on_old_python
