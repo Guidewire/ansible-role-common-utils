@@ -43,6 +43,7 @@
       - git
       - lshw
       - tcpdump
+      - httpd-tools
   ignore_errors: True
   when: not common_utils_ascetic_install
 
