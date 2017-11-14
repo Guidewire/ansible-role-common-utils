@@ -27,6 +27,7 @@
     - nano
     - ncdu
     - net-tools
+    - ntp
     - python-pip
     - smartmontools
     - sysstat
@@ -63,3 +64,6 @@
 
 - name: enable atop
   service: name=atop state=started enabled=on
+
+- name: start ntp
+  service: name=ntpd state=started
